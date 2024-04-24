@@ -4,7 +4,9 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
-import { Code } from "lucide-react";
+import { Code, LogOut, LogOutIcon } from "lucide-react";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Header=()=>{
     const session=useSession();
@@ -21,8 +23,13 @@ const Header=()=>{
                     <div className="flex justify-end items-center gap-4">
                         {session.data?.user ? (
                             <>
-                                <h4>Hi, {session.data.user.name!}</h4>
-                                <Button onClick={()=>signOut()}>
+                                <h4 className="hidden lg:block md:block">Hi, {session.data.user.name!}</h4>
+                                <Avatar>
+                                    <AvatarImage src={session.data.user.image ?? ""} />
+                                    <AvatarFallback>{session.data.user.name?.slice(0,1)}</AvatarFallback>
+                                </Avatar>
+                                <Button onClick={()=>signOut()} className="gap-2">
+                                    <LogOutIcon />
                                     Sign Out
                                 </Button>
                             </>
