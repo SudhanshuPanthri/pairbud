@@ -12,7 +12,7 @@ const Header=()=>{
     const session=useSession();
     return(
         <header>
-            <div className="border flex w-full h-[8vh] px-6 py-4">
+            <div className="flex w-full h-[10vh] px-6 py-4">
                 <div className="w-1/3 h-full flex items-center justify-start gap-2">
                     <Code />
                     <Link href='/'>

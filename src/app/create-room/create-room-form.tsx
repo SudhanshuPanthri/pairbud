@@ -40,8 +40,9 @@ const CreateRoomForm=()=>{
     })
 
     async function onSubmit(values:z.infer<typeof formSchema>){
+      console.log(values);
         await createRoomAction(values);
-        router.push("/");
+        router.push("/rooms");
     }
 
     return (
@@ -52,7 +53,7 @@ const CreateRoomForm=()=>{
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Room Name</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -84,12 +85,12 @@ const CreateRoomForm=()=>{
               name="language"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Primary Programming Language</FormLabel>
+                  <FormLabel>Tags</FormLabel>
                   <FormControl>
-                    <Input{...field} />
+                    <Input{...field} placeholder="typescript, nextjs, tailwind" />
                   </FormControl>
                   <FormDescription>
-                    List the primary programming language you are working with
+                    List your programming languages, frameworks, libraries so people can find your content
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +103,7 @@ const CreateRoomForm=()=>{
                 <FormItem>
                   <FormLabel>Github Repository</FormLabel>
                   <FormControl>
-                    <Input{...field} />
+                    <Input{...field} placeholder="https://github.com/SudhanshuPanthri/pairbud" />
                   </FormControl>
                   <FormDescription>
                     Enter your Github Repository if got any
