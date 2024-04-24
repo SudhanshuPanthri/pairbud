@@ -15,6 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { createRoomAction } from "./actions";
+import { useRouter } from "next/navigation";
 
 const formSchema=z.object({
     name:z.string().min(1).max(50),
@@ -24,6 +26,9 @@ const formSchema=z.object({
 })
 
 const CreateRoomForm=()=>{
+
+  const router=useRouter();
+
     const form=useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
         defaultValues:{
@@ -34,8 +39,9 @@ const CreateRoomForm=()=>{
         }
     })
 
-    function onSubmit(values:z.infer<typeof formSchema>){
-        console.log(values);
+    async function onSubmit(values:z.infer<typeof formSchema>){
+        await createRoomAction(values);
+        router.push("/");
     }
 
     return (
