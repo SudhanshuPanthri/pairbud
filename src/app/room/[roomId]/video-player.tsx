@@ -4,6 +4,7 @@ import { Room } from '@/db/schema';
 import {
     Call,
     CallControls,
+    CallParticipantsList,
     SpeakerLayout,
     StreamCall,
     StreamTheme,
@@ -13,12 +14,14 @@ import {
   } from '@stream-io/video-react-sdk';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { generateTokenAction } from "./actions";
+import { useRouter } from "next/navigation";
   
   const apiKey = process.env.NEXT_PUBLIC_GET_STREAM_API_KEY!;
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWJkYmU1ZDctNDk3My00ZmI5LTg1ZmYtNTc0Y2QyMDFkOGRlIn0.MNl1nvLYXAoymoG2rbZCKKY_-Ha3qU63ZiqvZZj2RuU';
   
   export const PairBudVideo = ({room}:{room:Room}) => {
     const session=useSession();
+    const router=useRouter();
 
     const [client,setClient]=useState<StreamVideoClient | null>(null);
     const [call,setCall]=useState<Call | null>(null)
@@ -30,7 +33,7 @@ import { useEffect, useState } from 'react';
         }
         const userId=session.data.user.id;
 
-    const client = new StreamVideoClient({ apiKey, user:{id:userId}, token });
+    const client = new StreamVideoClient({ apiKey, user:{id:userId,name:session.data.user.name ?? undefined,image:session.data.user.image ?? undefined},tokenProvider:()=>generateTokenAction()});
     setClient(client);
     const call = client.call('default', room.id);
     call.join({ create: true });
@@ -44,10 +47,11 @@ import { useEffect, useState } from 'react';
     return (
         client && call && (
       <StreamVideo client={client}>
-        <StreamTheme>
+        <StreamTheme className="w-full">
         <StreamCall call={call}>
           <SpeakerLayout />
-          <CallControls />
+          <CallControls onLeave={()=>{router.push("/rooms")}} />
+          <CallParticipantsList onClose={()=>{}}/>
         </StreamCall>
         </StreamTheme>
       </StreamVideo>

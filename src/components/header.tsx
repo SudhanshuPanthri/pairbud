@@ -28,7 +28,7 @@ const Header=()=>{
                                     <AvatarImage src={session.data.user.image ?? ""} />
                                     <AvatarFallback>{session.data.user.name?.slice(0,1)}</AvatarFallback>
                                 </Avatar>
-                                <Button onClick={()=>signOut()} className="gap-2">
+                                <Button onClick={()=>signOut({callbackUrl:"/"})} className="gap-2">
                                     <LogOutIcon />
                                     Sign Out
                                 </Button>

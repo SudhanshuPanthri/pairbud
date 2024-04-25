@@ -12,6 +12,7 @@ import {
   } from "@/components/ui/card"
 import { Room } from "@/db/schema";
 import { getRooms } from "@/data-access/rooms";
+import SearchBar from "@/components/search-bar";
   
 
 
@@ -38,11 +39,14 @@ function RoomCard({room}:{room:Room}){
 }
 
 
-const Rooms= async ()=>{
-    const rooms=await getRooms();
+const Rooms= async ({searchParams}:{searchParams:{search:string}})=>{
+    const rooms=await getRooms(searchParams.search);
 
     return(
         <div className="flex px-6 py-4 flex-wrap">
+            <div className="">
+                <SearchBar />
+            </div>
             <div className="h-[8vh] w-full flex items-center justify-between">
                 <div className="flex items-center justify-center gap-2">
                     <AppWindowMac className="lg:h-12 lg:w-12 md:h-8 md:w-8" />

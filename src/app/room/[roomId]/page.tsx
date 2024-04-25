@@ -19,14 +19,14 @@ const RoomPage=async (props:{params:{roomId:string}})=>{
     const languages=room.language.split(",").map((lang)=>lang.trim());
 
     return(
-        <div className="flex h-screen px-6 py-4 gap-4">
+        <div className="px-6 py-4 lg:flex lg:gap-4">
             {/* left  */}
-            <div className="flex w-2/3">
+            <div className="flex w-full lg:w-2/3 border ">
                 {/* <h2>Video Player</h2> */}
                 <PairBudVideo room={room} />
             </div>
             {/* right  */}
-            <div className="flex flex-col w-1/3 gap-6 p-2 rounded-xl">
+            <div className="flex flex-col w-full lg:w-1/3 gap-6 p-2 rounded-xl my-10 lg:my-0">
                 <div className="flex items-center justify-start gap-2">
                     <CodeSquare />
                     <h1 className="text-2xl">{room?.name}</h1>
