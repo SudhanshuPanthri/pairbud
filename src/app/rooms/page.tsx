@@ -13,10 +13,12 @@ import {
 import { Room } from "@/db/schema";
 import { getRooms } from "@/data-access/rooms";
 import SearchBar from "@/components/search-bar";
+import { Badge } from "@/components/ui/badge";
   
 
 
 function RoomCard({room}:{room:Room}){
+    const languages=room.language.split(",").map((lang)=>lang.trim());
     return(
     <Card className="lg:w-1/4 md:w-2/5  mt-10 w-full mx-2 flex flex-col ">
         <CardHeader>
@@ -28,6 +30,11 @@ function RoomCard({room}:{room:Room}){
                 <GithubIcon />
                 Github Repository
             </Link>}
+            <div className="flex gap-4 flex-wrap mt-4">
+                {languages.map((lang)=>(
+                    <Badge key={lang} className="w-fit cursor-pointer">{lang}</Badge>
+                ))}
+                </div>
         </CardContent>
         <CardFooter>
             <Button asChild>

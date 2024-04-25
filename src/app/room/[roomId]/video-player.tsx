@@ -39,8 +39,10 @@ import { useRouter } from "next/navigation";
     call.join({ create: true });
     setCall(call);
     return ()=>{
-        call.leave();
-        client.disconnectUser();
+        call.leave().then(()=>{
+          client.disconnectUser();
+        })
+        .catch(console.error);
     }
     },[session,room])
 
