@@ -45,7 +45,7 @@ const SearchBar=()=>{
 
     return (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center justify-between w-[90vw]">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center justify-between w-[90vw] my-6">
             <FormField
               control={form.control}
               name="search"
