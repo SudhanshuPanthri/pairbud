@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { AppWindowMac, GithubIcon, Home, Trash } from "lucide-react";
+import { GithubIcon, Trash } from "lucide-react";
 import Link from "next/link";
 import {
     Card,
@@ -25,10 +25,11 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import { deleteRoomAction } from "@/app/your-rooms/actions";
+import { useToast } from "./ui/use-toast";
 
 
 function RoomCard({room}:{room:Room}){
-
+    const {toast}=useToast();
     const handleDelete=()=>{
         deleteRoomAction(room.id);
     }
@@ -76,7 +77,7 @@ function RoomCard({room}:{room:Room}){
                 </div>
         </CardContent>
         <CardFooter>
-            <Button asChild>
+            <Button asChild onClick={()=>toast({title:"Joining Room",description:"Letting you in...."})}>
                 <Link href={`/room/${room.id}`}>Join Room</Link>
             </Button>
         </CardFooter>

@@ -21,7 +21,7 @@ const RoomPage=async (props:{params:{roomId:string}})=>{
     return(
         <div className="px-6 py-4 lg:flex lg:gap-4">
             {/* left  */}
-            <div className="flex w-full lg:w-2/3 border ">
+            <div className="flex w-full lg:w-2/3 ">
                 {/* <h2>Video Player</h2> */}
                 <PairBudVideo room={room} />
             </div>

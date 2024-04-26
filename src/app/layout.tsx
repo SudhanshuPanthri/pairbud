@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import NextTopLoader from 'nextjs-toploader';
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/toaster"
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Header />
             {children}
          </Providers>
+         <Toaster />
       </body>
     </html>
   );

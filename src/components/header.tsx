@@ -4,9 +4,21 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
-import { Code, LogOut, LogOutIcon } from "lucide-react";
+import { Code, Delete, LogOut, LogOutIcon } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
+import { deleteAccountAction } from "@/actions";
 
 const Header=()=>{
     const session=useSession();
@@ -28,9 +40,33 @@ const Header=()=>{
                                     <AvatarImage src={session.data.user.image ?? ""} />
                                     <AvatarFallback>{session.data.user.name?.slice(0,1)}</AvatarFallback>
                                 </Avatar>
+                                <AlertDialog>
+                                    <AlertDialogTrigger asChild >
+                                    <Button className="gap-2">
+                                        <Delete />
+                                        <span className="hidden lg:block">Delete Account</span>
+                                    </Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            This action cannot be undone. This will permanently delete your rooms
+                                            and remove your data from our servers.
+                                        </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                        <AlertDialogAction onClick={async()=>{
+                                            await deleteAccountAction();
+                                            signOut({callbackUrl:"/"})
+                                        }}>Yes, Delete Account</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                    </AlertDialog>
                                 <Button onClick={()=>signOut({callbackUrl:"/"})} className="gap-2">
                                     <LogOutIcon />
-                                    Sign Out
+                                    <span className="hidden lg:block">Sign Out</span>
                                 </Button>
                             </>
                         ):(

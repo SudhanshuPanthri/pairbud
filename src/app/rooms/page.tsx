@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { AppWindowMac, GithubIcon, Home, Trash } from "lucide-react";
+import { AppWindowMac, GithubIcon, Home, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 
 import { getRooms } from "@/data-access/rooms";
@@ -8,6 +8,7 @@ import SearchBar from "@/components/search-bar";
 
 import RoomCard from "@/components/RoomCard";
 import { getSession } from "@/lib/auth";
+import Image from "next/image";
   
 
 const Rooms= async ({searchParams}:{searchParams:{search:string}})=>{
@@ -33,11 +34,22 @@ const Rooms= async ({searchParams}:{searchParams:{search:string}})=>{
                         <Link href="/your-rooms">Your Rooms</Link>
                     </Button>
                 )}
-                <Button asChild>
-                    <Link href="/create-room">Create Room</Link>
+                <Button asChild className="flex items-center justify-center">
+                    <div>
+                    <Plus />
+                    <Link href="/create-room" className="hidden lg:block">Create Room</Link>
+                    </div>
                 </Button>
                 </div>
             </div>
+
+            {rooms.length===0 && (
+                <div className="flex flex-col items-center justify-center w-full gap-10">
+                    <Image src="./placeholder.svg" width={400} height={400} alt="placeholder" />
+                    <h1 className="text-2xl">No Rooms Found</h1>
+                </div>
+            )}
+
             {rooms?.map((room)=>{
                 return <RoomCard key={room.id} room={room} />
             })}
