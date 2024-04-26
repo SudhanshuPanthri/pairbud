@@ -43,7 +43,7 @@ const Rooms= async ({searchParams}:{searchParams:{search:string}})=>{
                 </div>
             </div>
 
-            {rooms.length===0 && (
+            {rooms?.length===0 && (
                 <div className="flex flex-col items-center justify-center w-full gap-10">
                     <Image src="./placeholder.svg" width={400} height={400} alt="placeholder" />
                     <h1 className="text-2xl">No Rooms Found</h1>
